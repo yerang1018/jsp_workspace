@@ -112,5 +112,99 @@ public class McDonaldDAO {
 	}
 	
 	//	추가 (insert into mcdonald (category, name, price, imgName, memo) values (?, ?, ?, ?, ?)
+	public int insert(McDonaldDTO dto) {
+		int row = 0;
+		String sql = "insert into mcdonald (category, name, price, imgName, memo) values (?, ?, ?, ?, ?)";
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getCategory());
+			pstmt.setString(2, dto.getName());
+			pstmt.setInt(3, dto.getPrice());
+			pstmt.setString(4, dto.getImgName());
+			pstmt.setString(5, dto.getMemo());
+			
+			row = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return row;
+	}
+	
+	
+	//	마지막으로 사용한 시퀀스 번호를 불러오는 함수
+	//	select max(idx) from mcdonald
+	
+	public int selectCurrSeq() {
+		int idx = 0;
+		String sql = "select max(idx) from mcdonald";
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				idx = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return idx;
+	}
+	
+	
+	
+	//	삭제	(delete mcdonald where idx = ?)
+	public int delete(int idx) {
+		int row = 0;
+		String sql = "delete mcdonald where idx = ?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			row = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		} 
+		return row;
+	}
+	
+	
+	//	수정 
+	public int update(McDonaldDTO dto) {
+		int row = 0;
+		String sql = "update mcdonald set name = ?, price = ?, imgname = ?, category = ?, memo = ? where idx = ?";
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getName());
+			pstmt.setInt(2, dto.getPrice());
+			pstmt.setString(3, dto.getImgName());
+			pstmt.setString(4, dto.getCategory());
+			pstmt.setString(5, dto.getMemo());
+			pstmt.setInt(6, dto.getIdx());
+			
+			row = pstmt.executeUpdate();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		} 
+		return row;
+	}
+	
 	
 }
