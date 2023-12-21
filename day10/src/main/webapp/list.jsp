@@ -23,6 +23,11 @@
 		color: black;
 		cursor: pointer;
 	}
+	.sb {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
 
 </style>
 
@@ -41,7 +46,9 @@
 		<input type="submit" value="검색">
 	</p>
 </form>
-
+<div>
+	<a href="add.jsp"><button>추가</button></a>
+</div>
 
 
 
@@ -68,7 +75,7 @@
 		<td>${dto.id }</td> 
 		<td>
 			<img src="artist_img/${dto.artist_img }" height="50">
-			${dto.artist_name }	
+			${dto.artist_name }
 		</td>
 		<td>
 			<img src="album_img/${dto.album_img }" height="50">

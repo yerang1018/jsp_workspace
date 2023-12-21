@@ -12,12 +12,26 @@ import java.util.List;
 
 public class BugsDAO {
 
-	//	싱글톤
+	//	싱글톤: 	페이지 마다 같은 기능을 하는 서로 다른 객체가 생기지 않도록 처리
+	//			싱글톤이 왜 필요할까? 	컴퓨터 메모리 관리(자원관리)를 위해서
+	//								list, insert, delete ... 등의 기능을 위해 
+	//								사용될 DAO가 서로 같은 DB에 접근할 것인데 굳이 객체를 여러개 만들어서 사용할 필요가 없다.
+	
+	
+	
+	
+	
+	
+	
 	//	멤버 필드
 	private String url = "jdbc:oracle:thin:@192.168.1.100:1521:xe";
 	private String user = "c##itbank";
 	private String password = "it";
 	
+	
+	//	conn 객체도 함수가 호출 되고 나서야, 객체가 생성된다 
+	//	conn = getConnection();
+	//	커넥션 풀 : 프로젝트가 실행되는 시점에서 작성 
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
@@ -175,10 +189,73 @@ public class BugsDAO {
 //	
 	//	int insert(BugsDTO dto)
 	//	insert into bugs (...) values(?, ...)
+	//	add.jsp 폼에 있는 애들을 보면서 sql 구문 만들기
+	public int insert(BugsDTO dto) {
+		int row = 0;
+		
+		String sql = "insert into bugs ("
+				+ "		artist_name,"
+				+ "		album_name,"
+				+ "		name,"
+				+ "		genre,"
+				+ "		playTime,"
+				+ "		isTitle,"
+				+ "		lyrics"
+				+ ") values ("
+				+ "		?, ?, ?, ?, ?, ?, ?"
+				+ ")";
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setString(1, dto.getArtist_name());
+			pstmt.setString(2, dto.getAlbum_name());
+			pstmt.setString(3, dto.getName());
+			pstmt.setString(4, dto.getGenre());
+			pstmt.setInt(5, dto.getPlayTime());
+			pstmt.setInt(6, dto.getIsTitle());
+			pstmt.setString(7, dto.getLyrics());
+			row = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return row;
+	}
+	
 	
 	
 	//	int delete(int id)
 	//	delete from bugs where id = ?
+	public int delete(int id) {
+		int row = 0;
+		
+		String sql = "delete from bugs where id = ?";
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, id);
+			row = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		
+		return row;
+	}
+	
+	
+	
 	
 	
 }
