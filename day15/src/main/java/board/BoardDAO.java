@@ -60,7 +60,10 @@ import javax.naming.Context;
 		public List<BoardDTO> selectList() {
 			ArrayList<BoardDTO> list = new ArrayList<>();
 			
-			String sql = "select * from board order by idx desc";	//	최신글이 위에 노출
+			String sql = "select "
+					+ " (select count(*) from reply where board_idx = board.idx) as replyCount,"
+					+ " board.* "
+					+ " from board order by idx desc";	//	최신글이 위에 노출
 			
 			try {
 				conn = ds.getConnection();
@@ -68,7 +71,9 @@ import javax.naming.Context;
 				rs = pstmt.executeQuery();
 				
 				while(rs.next()) {
-					list.add(mapping(rs));
+					BoardDTO dto = mapping(rs);		//	기본 매핑
+					dto.setReplyCount(rs.getInt("replyCount"));		//	댓글 개수
+					list.add(dto);
 				}
 				
 			} catch (Exception e) {
@@ -130,5 +135,6 @@ import javax.naming.Context;
 			return row;
 		}
 	
-	
+	   
+		
 }
