@@ -11,8 +11,8 @@
 
 
 <%
-	session.invalidate();
-	response.sendRedirect(request.getContextPath());
+	session.invalidate();			//	세션을 만료 
+	response.sendRedirect(request.getContextPath());	//	바로 대문 페이지로 보냄
 	
 	//	<c:redirect url="/" />
 	//	request.getContextPath()  == c:path
