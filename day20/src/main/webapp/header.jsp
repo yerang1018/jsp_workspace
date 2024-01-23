@@ -77,16 +77,16 @@
 	div.font {
 		font-size: 14px;
 		font-weight: bold;
-		padding-right: 40px;
+		padding-right: 50px;
 		padding-top: 20px;
 		padding-bottom: 10px;
 	}
 	.flex {
 		display: flex;
 	}
-	.center {
+	div.center {
 		width: 900px;
-		padding: 0px auto;
+		padding-left: 35%;
 	}
 	
 	.bold {
@@ -102,6 +102,14 @@
 		list-style: none;
 		padding-bottom: 10px;
 		padding-left: 0px;
+	}
+	
+	div.font2 {
+		padding-right: 40px;
+		padding-top: 20px;
+		padding-bottom: 10px;
+		font-size: 11px;
+
 	}
 
 </style>

@@ -9,6 +9,13 @@
 </head>
 <body>
 
+<c:if test="${empty login }">
+	<script>
+		alert('먼저 로그인 후에 작성 가능합니다')
+		history.go(-1)
+	</script>
+</c:if>
+
 <main>
 	<h3>게시글 작성</h3>
 	<form method="POST" action="write-action.jsp" enctype="multipart/form-data">

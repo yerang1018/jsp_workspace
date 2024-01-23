@@ -35,13 +35,13 @@ public class Paging {
 		this.page = page;
 		this.boardCount = boardCount;
 		
-		perPage = 15;
-		offset = (page - 1) * perPage;
+		perPage = 15;					//	화면에 출력될 페이지 개수
+		offset = (page - 1) * perPage;	
 		fetch = perPage;
 		
 		pageCount = boardCount / perPage;
 		pageCount += (boardCount % perPage != 0) ? 1: 0;
-		section = (page - 1) / 10;
+		section = (page - 1) / 10;		//	구역 : 1 ~ 10(== 0) ,  11 ~ 20(== 1) 
 		
 		begin = section * 10 + 1;
 		end = begin + 9;

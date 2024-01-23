@@ -9,21 +9,29 @@
 <title>Insert title here</title>
 </head>
 <body>
+<c:set var="row" value="${boardDAO.updateViewCount(param.idx) }" />
+
 <c:set var="dto" value="${boardDAO.selectOne(param.idx) }" />
 
 <div class="box2">
 <div class="flex">
-	<div class="font">${dto.idx }</div>
-	<div class="font">${dto.title }</div>
-	<div class="font">${dto.writer }</div>
-	<div class="font">${dto.writeDate }</div>
-	<div class="font">${dto.ipaddr }</div>
+	<div class="font">[ ${dto.idx } ]</div>
+	<div class="font">조회수 : ${dto.viewCount }</div>
+	<div class="font">글 제목 : ${dto.title }</div>
+	<div class="font">작성자 : ${dto.writer }</div>
+
 </div>
 <div class="flex">
 	<div class="font"><img src="${cpath }/reviewImage/${dto.image }"></div>
 	<div class="font"><pre>${dto.content }</pre></div>
 </div>					
+<div class="flex">
+	<div class="font2"><fmt:formatDate value="${dto.writeDate }" pattern="yyyy년 MM월 dd일 a hh시 mm분" /></div>
+	<div class="font2">${dto.ipaddr }</div>
 </div>
+</div>
+
+
 <div class="sb">
 	<div>
 		<a href="${cpath }"><button>목록</button></a>
